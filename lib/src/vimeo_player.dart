@@ -35,6 +35,9 @@ class VimeoVideoPlayer extends StatefulWidget {
   /// to auto-play the video once initialized
   final bool autoPlay;
 
+  /// to mute the video once initialized
+  final bool muteInitialize;
+
   /// Options to pass in Dio GET request
   /// Used in vimeo video public API call to get the video config
   final Options? dioOptionsForVimeoVideoConfig;
@@ -55,6 +58,7 @@ class VimeoVideoPlayer extends StatefulWidget {
     this.onProgress,
     this.onFinished,
     this.autoPlay = false,
+    this.muteInitialize = false,
     this.dioOptionsForVimeoVideoConfig,
     super.key,
   });
@@ -236,6 +240,10 @@ class _VimeoVideoPlayerState extends State<VimeoVideoPlayer> {
           VideoPlayerController.networkUrl(Uri.parse(vimeoMp4Video));
       _setVideoInitialPosition();
       _setVideoListeners();
+
+        if (widget.muteInitialize) {
+          _videoPlayerController?.setVolume(0.0);
+        }
 
       _flickManager = FlickManager(
         videoPlayerController:
