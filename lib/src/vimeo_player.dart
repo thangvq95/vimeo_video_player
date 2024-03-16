@@ -38,6 +38,9 @@ class VimeoVideoPlayer extends StatefulWidget {
   /// to mute the video once initialized
   final bool muteInitialize;
 
+  /// to fallback vimeoConfig
+  final Function(VimeoProgressive)? vimeoProgressive;
+
   /// Options to pass in Dio GET request
   /// Used in vimeo video public API call to get the video config
   final Options? dioOptionsForVimeoVideoConfig;
@@ -59,6 +62,7 @@ class VimeoVideoPlayer extends StatefulWidget {
     this.onFinished,
     this.autoPlay = false,
     this.muteInitialize = false,
+    this.vimeoProgressive,
     this.dioOptionsForVimeoVideoConfig,
     super.key,
   });
@@ -229,6 +233,9 @@ class _VimeoVideoPlayerState extends State<VimeoVideoPlayer> {
               element.url != '' &&
               vimeoMp4Video == '') {
             vimeoMp4Video = element.url ?? '';
+            if(vimeoMp4Video.isNotEmpty){
+              widget.vimeoProgressive?.call(element);
+            }
           }
         }).toList();
         if (vimeoMp4Video.isEmpty || vimeoMp4Video == '') {
