@@ -13,7 +13,10 @@ dependencies:
     sdk: flutter
 
   dio: ^5.4.1
-  flick_video_player: ^0.7.0
+  flick_video_player:
+     git:
+       url: https://github.com/h1amza/flick-video-player.git
+       ref: master
   video_player: ^2.8.2
 
 dev_dependencies:
